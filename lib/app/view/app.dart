@@ -2,7 +2,9 @@ import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:luna_date/app/router/router.dart';
+import 'package:luna_date/gen/fonts.gen.dart';
 import 'package:luna_date/l10n/l10n.dart';
+import 'package:luna_date/shared/shared.dart';
 
 class App extends ConsumerWidget {
   const App({super.key});
@@ -22,11 +24,11 @@ class App extends ConsumerWidget {
         physics: const BouncingScrollPhysics(),
       ),
       theme: ThemeData(
-        appBarTheme: const AppBarTheme(color: Color(0xff735bf2)),
-        colorScheme: ColorScheme.fromSwatch(
-          accentColor: const Color(0xff735bf2),
-        ),
+        useMaterial3: true,
+        colorSchemeSeed: const Color(0xff735bf2),
         canvasColor: Colors.transparent,
+        fontFamily: FontFamily.oswald,
+        textTheme: appTextTheme,
       ),
       localizationsDelegates: AppLocalizations.localizationsDelegates,
       supportedLocales: AppLocalizations.supportedLocales,
