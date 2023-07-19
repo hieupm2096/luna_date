@@ -1,11 +1,41 @@
+import 'dart:async';
+
 import 'package:awesome_extensions/awesome_extensions.dart';
 import 'package:flutter/material.dart';
 import 'package:luna_date/core/core.dart';
 
-class HomeHeaderSection extends StatelessWidget {
+class HomeHeaderSection extends StatefulWidget {
   const HomeHeaderSection({
     super.key,
   });
+
+  @override
+  State<HomeHeaderSection> createState() => _HomeHeaderSectionState();
+}
+
+class _HomeHeaderSectionState extends State<HomeHeaderSection> {
+  late DateTime _now;
+  late Timer _timer;
+
+  @override
+  void initState() {
+    _now = DateTime.now();
+    _timer = Timer.periodic(
+      const Duration(seconds: 1),
+      (timer) {
+        setState(() {
+          _now = _now.add(const Duration(seconds: 1));
+        });
+      },
+    );
+    super.initState();
+  }
+
+  @override
+  void dispose() {
+    _timer.cancel();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -27,29 +57,31 @@ class HomeHeaderSection extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    Text('Thứ Ba', style: context.displayMedium)
-                        .bold()
-                        .textColor(context.colorScheme.onBackground),
-                    Text('13.12', style: context.displayLarge)
-                        .bold()
-                        .textColor(context.colorScheme.onBackground),
+                    Text(
+                      _now.lunarDate.format('EEEE'),
+                      style: context.displayMedium,
+                    ).bold().textColor(context.colorScheme.onBackground),
+                    Text(
+                      _now.lunarDate.format('dd.MM'),
+                      style: context.displayLarge,
+                    ).bold().textColor(context.colorScheme.onBackground),
                   ],
                 ),
                 const Spacer(),
-                const SizedBox(width: 24),
+                const SizedBox(width: 20),
                 const VerticalDivider(
                   thickness: 1,
                   color: Colors.grey,
                   indent: 16,
                   endIndent: 16,
                 ),
-                const SizedBox(width: 16),
+                const SizedBox(width: 20),
                 const Spacer(),
                 Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      '07.01',
+                      _now.format('dd.MM'),
                       style: context.headlineMedium,
                     ).textColor(context.colorScheme.onBackground),
                     Text(
@@ -58,7 +90,7 @@ class HomeHeaderSection extends StatelessWidget {
                     ).textColor(context.colorScheme.onBackground),
                     const SizedBox(height: 16),
                     Text(
-                      '06:20',
+                      _now.format('HH:mm'),
                       style: context.headlineMedium,
                     ).textColor(context.colorScheme.onBackground),
                     Text(
