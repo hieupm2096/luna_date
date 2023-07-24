@@ -1,12 +1,17 @@
 import 'package:awesome_extensions/awesome_extensions.dart';
 import 'package:flutter/material.dart';
 import 'package:luna_date/core/core.dart';
+import 'package:luna_date/feature/home/entity/event_entity.dart';
+import 'package:luna_date/feature/home/enum/event_time_type.dart';
 import 'package:luna_date/shared/shared.dart';
 
 class EventCard extends StatelessWidget {
   const EventCard({
+    required this.event,
     super.key,
   });
+
+  final EventEntity event;
 
   @override
   Widget build(BuildContext context) {
@@ -19,29 +24,33 @@ class EventCard extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          const Row(
+          Row(
             children: [
-              AppChip(label: 'lễ hội'),
+              if (event.category != null) AppChip(label: event.category!),
             ],
           ),
-          const SizedBox(height: 12),
+          const SizedBox(height: 16),
           Text(
-            'Trung Thu',
+            event.title,
             style: context.headlineLarge,
           ).textColor(context.colorScheme.onTertiaryContainer).bold(),
           const SizedBox(height: 32),
           Row(
             children: [
-              const _IconDescription(
-                icon: Icon(Icons.alarm, size: 16),
-                label: 'Cả ngày',
+              _IconDescription(
+                icon: Icon(event.eventTimeType.icon, size: 16),
+                label: event.eventTimeType != EventTimeType.custom
+                    ? event.eventTimeType.getEventTimeTitle(context)
+                    : '${event.startTime.format('HH:mm')}-'
+                        '${event.endTime.format('HH:mm')}',
               ),
               const Spacer(),
-              const SizedBox(width: 24),
-              const _IconDescription(
-                icon: Icon(Icons.repeat, size: 16),
-                label: 'Hàng năm',
-              ),
+              if (event.repeat) const SizedBox(width: 24),
+              if (event.repeat)
+                _IconDescription(
+                  icon: const Icon(Icons.repeat, size: 16),
+                  label: event.repeatType?.getTitle(context) ?? '',
+                ),
               const Spacer(),
               const SizedBox(width: 48),
               Text(

@@ -58,7 +58,7 @@ class _HomeHeaderSectionState extends State<HomeHeaderSection> {
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     Text(
-                      _now.lunarDate.format('EEEE'),
+                      _now.format('EEEE'),
                       style: context.displayMedium,
                     ).bold().textColor(context.colorScheme.onBackground),
                     Text(
@@ -94,7 +94,7 @@ class _HomeHeaderSectionState extends State<HomeHeaderSection> {
                       style: context.headlineMedium,
                     ).textColor(context.colorScheme.onBackground),
                     Text(
-                      'GMT+7',
+                      'GMT+${_now.timeZoneOffset.inHours.padZero(2)}',
                       style: context.titleSmall,
                     ).textColor(context.colorScheme.onBackground),
                   ],

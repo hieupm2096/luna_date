@@ -23,7 +23,7 @@ class AppChip extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: padding ?? const EdgeInsets.fromLTRB(10, 2, 10, 2),
+      padding: padding ?? const EdgeInsets.fromLTRB(10, 2, 10, 4),
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(radius),
         border: border ??
@@ -31,11 +31,10 @@ class AppChip extends StatelessWidget {
         color: backgroundColor,
       ),
       child: Text(
-        label,
-        style: context.labelLarge!.copyWith(
+        label.toLowerCase(),
+        style: context.titleSmall!.copyWith(
           color: textColor ?? context.colorScheme.onSecondaryContainer,
           letterSpacing: 1.2,
-          fontWeight: FontWeight.w500,
         ),
       ),
     );

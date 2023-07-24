@@ -27,5 +27,6 @@ const appTextTheme = TextTheme(
     fontFamily: FontFamily.robotoCondensed,
     fontSize: 14,
     height: 20 / 14,
+    fontWeight: FontWeight.w400,
   ),
 );
