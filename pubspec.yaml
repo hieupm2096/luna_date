@@ -21,7 +21,7 @@ dev_dependencies:
   custom_lint:
   flutter_test:
     sdk: flutter
-  mocktail: ^0.3.0
+  mocktail: ^1.0.0
   riverpod_generator: ^2.2.3
   riverpod_lint:
   very_good_analysis: ^5.0.0
